@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, Header, Form, Input, Button } from 'semantic-ui-react';
+import { validateLogin } from '../database/queries.js';
 
 class Login extends React.Component {
     
@@ -8,11 +9,13 @@ class Login extends React.Component {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            errorMessage: ""
         }
 
         this.updateUsername = this.updateUsername.bind(this);
         this.updatePassword = this.updatePassword.bind(this);
+        this.login = this.login.bind(this);
     }
 
     updateUsername(e) {
@@ -25,6 +28,30 @@ class Login extends React.Component {
         this.setState({
             password: e.target.value
         })
+    }
+
+    login(e) {
+        if (this.state.username === "" || this.state.password === "") {
+            this.setState({
+                errorMessage: "Please input username & password!"
+            });
+        }
+
+        validateLogin(this.state.username, this.state.password).then(result => {
+            console.log(result);
+            if (typeof result === "string") {
+                this.setState({
+                    errorMessage: result
+                });
+                return;
+            }
+
+            console.log("success!");
+            this.setState({
+                errorMessage: ""
+            });
+
+        });
     }
 
     render() {
@@ -50,7 +77,8 @@ class Login extends React.Component {
                                 onChange={this.updatePassword} 
                             />
                         </Form.Field>
-                        <Button>Submit</Button>
+                        <Button onClick={this.login}>Login</Button>
+                        <Header as="h4" color="red">{ this.state.errorMessage }</Header>
                     </Form>
                 </Grid.Column>
             </Grid>
