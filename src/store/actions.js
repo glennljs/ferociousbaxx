@@ -4,3 +4,9 @@ export function login(userData) {
         payload: userData
     }
 }
+
+export function logout() {
+    return {
+        type: "user/logout"
+    }
+}

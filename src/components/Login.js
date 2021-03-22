@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { login } from "../store/actions.js";
 import { Grid, Header, Form, Input, Button } from 'semantic-ui-react';
 import { validateLogin } from '../database/queries.js';
 
@@ -51,6 +53,7 @@ class Login extends React.Component {
                 errorMessage: ""
             });
 
+            this.props.login(result);
         });
     }
 
@@ -87,4 +90,4 @@ class Login extends React.Component {
 
 }
 
-export default Login;
+export default connect(null, { login })(Login);
