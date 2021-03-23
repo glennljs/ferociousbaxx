@@ -17,7 +17,12 @@ class Dashboard extends React.Component {
             this.setState({
                 itemsData: result
             });
+            console.log(result);
         })
+    }
+
+    rerenderDashboard() {
+        this.componentDidMount();
     }
 
     render() {
@@ -25,7 +30,8 @@ class Dashboard extends React.Component {
             <div>
                 <h1>Welcome to Ferocious Baxx</h1>
                 <CardGroup centered itemsPerRow="3">
-                    { this.state.itemsData.map(item => <ToyCard item={ item }></ToyCard>) }
+                    { this.state.itemsData.map(item => 
+                        <ToyCard item={ item } callback={ () => this.rerenderDashboard() } key={ item.id }></ToyCard>) }
                 </CardGroup>
             </div>
         );

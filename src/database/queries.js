@@ -26,14 +26,22 @@ export function getAllItems() {
         .get()
         .then(snapshot => {
             return snapshot.docs.map(doc => {
-                return { id: doc.id, data: doc.data() };
+                const data = doc.data();
+                return { id: doc.id, title: data.title, image: data.image };
             });
         });
 }
 
-export function updateItem(id, newData) {
+export function editItem(id, newData) {
     return database
         .collection("items")
         .doc(id)
         .set(newData);
+}
+
+export function deleteItem(id) {
+    return database
+        .collection("items")
+        .doc(id)
+        .delete();
 }
