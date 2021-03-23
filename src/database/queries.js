@@ -19,3 +19,21 @@ export function validateLogin(username, password) {
             return userData;
         });
 }
+
+export function getAllItems() {
+    return database
+        .collection("items")
+        .get()
+        .then(snapshot => {
+            return snapshot.docs.map(doc => {
+                return { id: doc.id, data: doc.data() };
+            });
+        });
+}
+
+export function updateItem(id, newData) {
+    return database
+        .collection("items")
+        .doc(id)
+        .set(newData);
+}

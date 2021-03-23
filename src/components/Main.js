@@ -5,12 +5,10 @@ import Dashboard from './Dashboard';
 
 class Main extends React.Component {
     render() {
-        if (this.props.isLoggedIn) {
-            return <Dashboard />
-        }
-
         return (
-            <Login />
+            <div>
+                { this.props.isLoggedIn ? <Dashboard /> : <Login /> }
+            </div>
         )
     }
 }
