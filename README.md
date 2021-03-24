@@ -1,6 +1,7 @@
 # Ferocious Baxx
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+https://ferociousbaxx.web.app/ <br>
+Ferocious Baxx is a simple dashboard project that provides simple login authentication and CRUD functionality.
 
 ## Features
 
@@ -11,7 +12,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Filtering of Products in Dashboard
 * Responsive Interface
 
-# Project Example
+## Technologies Used
+
+* Firebase 
+    * Cloud Firestore
+    * Hosting
+* React
+* Semantic UI React
+
+# Local Usage
 
 ## Available Scripts
 
