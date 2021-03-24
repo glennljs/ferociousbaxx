@@ -9,7 +9,7 @@ Ferocious Baxx is a simple dashboard project that provides simple login authenti
 * All basic CRUD functionality
     * Viewing of Products in Dashboard
     * Add, Edit, Delete Products in Dashboard
-* Filtering of Products in Dashboard
+* Filtering of Products in Dashboard by Name or SKU
 * Responsive Interface
 
 ## Technologies Used
