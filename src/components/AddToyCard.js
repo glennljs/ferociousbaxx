@@ -9,8 +9,8 @@ class ToyCard extends React.Component {
         this.state = {
             image: "https://s3.amazonaws.com/static.graphemica.com/glyphs/i500s/000/010/184/original/002B-500x500.png?1275328183",
             toggleAddMode: false,
-            sku: "",
             data: {
+                sku: "",
                 title: "",
                 image: ""
             },
@@ -25,7 +25,10 @@ class ToyCard extends React.Component {
 
     updateSKU(e) {
         this.setState({
-            sku: e.target.value
+            data: {
+                ...this.state.data,
+                sku: e.target.value
+            }
         });
     }
 
@@ -48,22 +51,14 @@ class ToyCard extends React.Component {
     }
 
     toggleAdd(e) {
-        if (this.state.sku === "" || this.state.data.image === "" || this.state.data.title === "") {
+        if (this.state.data.sku === "" || this.state.data.image === "" || this.state.data.title === "") {
             this.setState({
                 errorMessage: "Fields cannot be empty!"
             });
             return;
         }
 
-        addItem(this.state.sku, this.state.data).then(result => {
-            if (result) {
-                this.setState({
-                    errorMessage: result
-                });
-                return;
-            }
-
-
+        addItem(this.state.data).then(result => {
             this.props.callback();
             this.setState({
                 toggleAddMode: false,

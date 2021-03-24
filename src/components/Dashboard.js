@@ -19,7 +19,7 @@ class Dashboard extends React.Component {
 
         this.updateSearchInput = this.updateSearchInput.bind(this);
         this.updateSearchId = this.updateSearchId.bind(this);
-        this.filterItems = this.filterItems.bind(this);
+        this.getFilteredItems = this.getFilteredItems.bind(this);
         this.logout = this.logout.bind(this);
     }
 
@@ -28,7 +28,6 @@ class Dashboard extends React.Component {
             this.setState({
                 itemsData: result
             });
-            console.log(result);
         })
     }
 
@@ -48,7 +47,7 @@ class Dashboard extends React.Component {
         })
     }
 
-    filterItems() {
+    getFilteredItems() {
         return this.state.itemsData.sort((a, b) => a.title.localeCompare(b.title))
             .filter(item => item.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
             .filter(item => item.id.toLowerCase().includes(this.state.searchId.toLowerCase()));
@@ -78,7 +77,7 @@ class Dashboard extends React.Component {
 
                 <CardGroup centered itemsPerRow="3" stackable>
                     <AddToyCard callback={ () => this.rerenderDashboard() } />
-                    { this.filterItems().map(item => 
+                    { this.getFilteredItems().map(item => 
                         <ToyCard item={ item } callback={ () => this.rerenderDashboard() } key={ item.id }></ToyCard>) }
                 </CardGroup>
             </div>

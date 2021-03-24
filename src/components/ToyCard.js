@@ -14,12 +14,22 @@ class ToyCard extends React.Component {
         }
 
         this.updateTitle = this.updateTitle.bind(this);
+        this.updateSKU = this.updateSKU.bind(this);
         this.updateImageSrc = this.updateImageSrc.bind(this);
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.toggleEdit = this.toggleEdit.bind(this);
         this.checkDelete = this.checkDelete.bind(this);
         this.cancelDelete = this.cancelDelete.bind(this);
         this.confirmDelete = this.confirmDelete.bind(this);
+    }
+
+    updateSKU(e) {
+        this.setState({
+            newData: {
+                ...this.state.newData,
+                sku: e.target.value
+            }
+        })
     }
 
     updateTitle(e) {
@@ -48,6 +58,7 @@ class ToyCard extends React.Component {
 
     toggleEdit(e) {
         const newData = {
+            sku: this.state.newData.sku || this.state.item.sku,
             title: this.state.newData.title || this.state.item.title,
             image: this.state.newData.image || this.state.item.image
         }
@@ -87,6 +98,7 @@ class ToyCard extends React.Component {
                     <Image src={ this.state.item.image } size="medium" centered />
                     <Label corner="right" icon="times" color="red" onClick={ this.toggleEditMode } />
                     <Card.Content>
+                        <Input icon="barcode" iconPosition="left" placeholder="SKU" onChange={ this.updateSKU } />
                         <Input icon="user" iconPosition="left" placeholder="Name" onChange={ this.updateTitle } />
                         <Input icon="image" iconPosition="left" placeholder="Image Source" onChange={ this.updateImageSrc } />
                     </Card.Content>
@@ -106,7 +118,7 @@ class ToyCard extends React.Component {
                 <Image src={ this.props.item.image } size="medium" centered />
                 <Card.Content>
                     <Card.Header>{ this.props.item.title }</Card.Header>
-                    <Card.Description>SKU: { this.props.item.id }</Card.Description>
+                    <Card.Description>SKU: { this.props.item.sku }</Card.Description>
                 </Card.Content>
             </Card>
         )

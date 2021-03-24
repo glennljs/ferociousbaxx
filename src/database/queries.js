@@ -27,7 +27,7 @@ export function getAllItems() {
         .then(snapshot => {
             return snapshot.docs.map(doc => {
                 const data = doc.data();
-                return { id: doc.id, title: data.title, image: data.image };
+                return { id: doc.id, title: data.title, image: data.image, sku: data.sku };
             });
         });
 }
@@ -46,9 +46,8 @@ export function deleteItem(id) {
         .delete();
 }
 
-export function addItem(id, data) {
+export function addItem(data) {
     return database
         .collection("items")
-        .doc(id)
-        .set(data);
+        .add(data);
 }

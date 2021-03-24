@@ -40,7 +40,6 @@ class Login extends React.Component {
         }
 
         validateLogin(this.state.username, this.state.password).then(result => {
-            console.log(result);
             if (typeof result === "string") {
                 this.setState({
                     errorMessage: result
@@ -48,7 +47,6 @@ class Login extends React.Component {
                 return;
             }
 
-            console.log("success!");
             this.setState({
                 errorMessage: ""
             });
