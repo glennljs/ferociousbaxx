@@ -45,3 +45,10 @@ export function deleteItem(id) {
         .doc(id)
         .delete();
 }
+
+export function addItem(id, data) {
+    return database
+        .collection("items")
+        .doc(id)
+        .set(data);
+}

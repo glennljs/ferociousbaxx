@@ -73,8 +73,9 @@ class ToyCard extends React.Component {
     }
 
     confirmDelete(e) {
-        deleteItem(this.state.item.id);
-        this.props.callback();
+        deleteItem(this.state.item.id).then(result => {
+            this.props.callback();
+        });
     }
 
     render() {
@@ -82,8 +83,9 @@ class ToyCard extends React.Component {
         // Edit Mode
         if (this.state.editMode) {
             return (
-                <Card>
-                    <Image src={ this.state.item.image }></Image>
+                <Card style={{ wordWrap: "break-word" }}>
+                    <Image src={ this.state.item.image } size="medium" centered />
+                    <Label corner="right" icon="times" color="red" onClick={ this.toggleEditMode } />
                     <Card.Content>
                         <Input icon="user" iconPosition="left" placeholder="Name" onChange={ this.updateTitle } />
                         <Input icon="image" iconPosition="left" placeholder="Image Source" onChange={ this.updateImageSrc } />
@@ -97,11 +99,11 @@ class ToyCard extends React.Component {
 
         // Default
         return (
-            <Card>
+            <Card style={{ wordWrap: "break-word" }}>
                 <Label corner="left" icon="edit" onClick={ this.toggleEditMode } />
                 <Label corner="right" icon="trash" color="red" onClick={ this.checkDelete } />
                 <Confirm open={ this.state.checkDelete } onCancel={ this.cancelDelete } onConfirm={ this.confirmDelete }  size="small" />
-                <Image src={ this.props.item.image } />
+                <Image src={ this.props.item.image } size="medium" centered />
                 <Card.Content>
                     <Card.Header>{ this.props.item.title }</Card.Header>
                     <Card.Description>SKU: { this.props.item.id }</Card.Description>

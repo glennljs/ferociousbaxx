@@ -77,12 +77,13 @@ class Login extends React.Component {
                                 iconPosition="left" 
                                 type="password" 
                                 placeholder="Password"
-                                onChange={this.updatePassword} 
+                                onChange={ this.updatePassword } 
                             />
                         </Form.Field>
-                        <Button onClick={this.login}>Login</Button>
+                        <Button onClick={ this.login }>Login</Button>
                         <Header as="h4" color="red">{ this.state.errorMessage }</Header>
                     </Form>
+                    <Header as="h6">Username: "username", Password: "password"</Header>
                 </Grid.Column>
             </Grid>
         );

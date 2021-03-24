@@ -1,15 +1,24 @@
 import React from "react";
-import { CardGroup } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { logout } from "../store/actions.js";
+import { Button, CardGroup, Confirm, Header, Input } from "semantic-ui-react";
 import { getAllItems } from '../database/queries.js';
 import ToyCard from './ToyCard.js';
+import AddToyCard from './AddToyCard.js';
 
 class Dashboard extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            itemsData: []
+            itemsData: [],
+            searchInput: "",
+            confirmLogout: false
         }
+
+        this.updateSearchInput = this.updateSearchInput.bind(this);
+        this.filterItems = this.filterItems.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount() {
@@ -25,17 +34,46 @@ class Dashboard extends React.Component {
         this.componentDidMount();
     }
 
+    updateSearchInput(e) {
+        this.setState({
+            searchInput: e.target.value
+        })
+    }
+
+    filterItems() {
+        return this.state.itemsData.sort((a, b) => a.title.localeCompare(b.title))
+            .filter(item => item.title.toLowerCase().includes(this.state.searchInput.toLowerCase()));
+    }
+
+    logout() {
+        this.props.logout();
+    }
+
     render() {
         return (
             <div>
-                <h1>Welcome to Ferocious Baxx</h1>
-                <CardGroup centered itemsPerRow="3">
-                    { this.state.itemsData.map(item => 
+                <Header as="h1">Ferocious Baxx</Header>
+
+                <Button onClick={ () => this.setState({ confirmLogout: true }) } style={{ marginBottom: 20 }}>Logout</Button>
+                <Confirm 
+                    open={ this.state.confirmLogout } 
+                    onCancel={ () => this.setState({ confirmLogout: false })} 
+                    onConfirm={ this.logout } 
+                    content="Are you sure you want to logout!"
+                    size="small"
+                />
+                <br></br>
+                <Input placeholder="Search..." style={{ marginBottom: 20 }} onChange={ this.updateSearchInput } />
+
+                <CardGroup centered itemsPerRow="3" stackable>
+                    <AddToyCard callback={ () => this.rerenderDashboard() } />
+                    { this.filterItems().map(item => 
                         <ToyCard item={ item } callback={ () => this.rerenderDashboard() } key={ item.id }></ToyCard>) }
                 </CardGroup>
             </div>
         );
     }
+
 }
 
-export default Dashboard;
+export default connect(null, { logout })(Dashboard);
