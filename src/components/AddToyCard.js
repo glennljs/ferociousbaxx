@@ -94,7 +94,7 @@ class ToyCard extends React.Component {
         return (
             <Card onClick={ () => this.setState({ toggleAddMode: !this.state.toggleAddMode }) }>
                 <Image src={ this.state.image } size="medium" centered />
-                <Header as="h1">Add</Header>
+                <Header as="h1" style={{ paddingBottom: 20 }}>Add</Header>
             </Card>
         )
     }

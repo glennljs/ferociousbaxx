@@ -13,10 +13,12 @@ class Dashboard extends React.Component {
         this.state = {
             itemsData: [],
             searchInput: "",
+            searchId: "",
             confirmLogout: false
         }
 
         this.updateSearchInput = this.updateSearchInput.bind(this);
+        this.updateSearchId = this.updateSearchId.bind(this);
         this.filterItems = this.filterItems.bind(this);
         this.logout = this.logout.bind(this);
     }
@@ -40,9 +42,16 @@ class Dashboard extends React.Component {
         })
     }
 
+    updateSearchId(e) {
+        this.setState({
+            searchId: e.target.value
+        })
+    }
+
     filterItems() {
         return this.state.itemsData.sort((a, b) => a.title.localeCompare(b.title))
-            .filter(item => item.title.toLowerCase().includes(this.state.searchInput.toLowerCase()));
+            .filter(item => item.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
+            .filter(item => item.id.toLowerCase().includes(this.state.searchId.toLowerCase()));
     }
 
     logout() {
@@ -63,7 +72,9 @@ class Dashboard extends React.Component {
                     size="small"
                 />
                 <br></br>
-                <Input placeholder="Search..." style={{ marginBottom: 20 }} onChange={ this.updateSearchInput } />
+                <Input placeholder="Search Name..." style={{ marginBottom: 5 }} onChange={ this.updateSearchInput } />
+                <br></br>
+                <Input placeholder="Search SKU..." style={{ marginBottom: 20 }} onChange={ this.updateSearchId } />
 
                 <CardGroup centered itemsPerRow="3" stackable>
                     <AddToyCard callback={ () => this.rerenderDashboard() } />
