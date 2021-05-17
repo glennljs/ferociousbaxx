@@ -48,9 +48,10 @@ class Dashboard extends React.Component {
     }
 
     getFilteredItems() {
+        console.log(this.state.searchId);
         return this.state.itemsData.sort((a, b) => a.title.localeCompare(b.title))
             .filter(item => item.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
-            .filter(item => item.id.toLowerCase().includes(this.state.searchId.toLowerCase()));
+            .filter(item => item.sku.toLowerCase().includes(this.state.searchId.toLowerCase()));
     }
 
     logout() {
